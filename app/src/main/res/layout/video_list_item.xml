@@ -7,11 +7,11 @@
 
         <variable
             name="model"
-            type="com.sagar.tumbnaildownloader.screens.videoadapter.VideoModel" />
+            type="com.sagar.thumbnaildownloader.screens.main.videoadapter.VideoModel" />
 
         <variable
             name="handler"
-            type="com.sagar.tumbnaildownloader.screens.videoadapter.VideoHandler" />
+            type="com.sagar.thumbnaildownloader.screens.main.videoadapter.VideoHandler" />
 
     </data>
 

@@ -22,4 +22,13 @@
     <color name="colorDarkDrawable">#616161</color>
     <color name="rippleColor">#bdbdbd</color>
 
+
+    <color name="color_mid_gray">#666</color>
+    <color name="color_light_green">@android:color/holo_green_light</color>
+    <color name="color_toast_green">#8CBD05</color>
+    <color name="color_light_red">@android:color/holo_red_light</color>
+    <color name="color_toast_red">@android:color/holo_red_light</color>
+    <color name="color_light_gray">@android:color/darker_gray</color>
+
+
 </resources>
