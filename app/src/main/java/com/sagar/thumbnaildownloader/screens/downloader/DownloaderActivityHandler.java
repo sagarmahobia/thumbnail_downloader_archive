@@ -1,6 +1,10 @@
 package com.sagar.thumbnaildownloader.screens.downloader;
 
-public interface DownloaderActivityHandler {
-    void save();
+import android.widget.ImageView;
 
+import com.sagar.thumbnaildownloader.screens.downloader.imageadapter.ImageModel;
+
+public interface DownloaderActivityHandler {
+
+    void back();
 }

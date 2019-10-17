@@ -1,8 +1,12 @@
 package com.sagar.thumbnaildownloader.screens.downloader;
 
+import android.widget.ArrayAdapter;
+
 import androidx.lifecycle.ViewModel;
 
 import com.sagar.thumbnaildownloader.network.repo.YoutubeRepository;
+
+import java.util.ArrayList;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -25,5 +29,15 @@ public class DownloaderActivityViewModel extends ViewModel {
     protected void onCleared() {
         super.onCleared();
         disposable.dispose();
+    }
+
+    public static final ArrayList<String> urls = new ArrayList<>();
+
+    static {
+        urls.add("https://img.youtube.com/vi/{}/sddefault.jpg");
+        urls.add("https://img.youtube.com/vi/{}/default.jpg");
+        urls.add("https://img.youtube.com/vi/{}/mqdefault.jpg");
+        urls.add("https://img.youtube.com/vi/{}/hqdefault.jpg");
+        urls.add("https://img.youtube.com/vi/{}/maxresdefault.jpg");
     }
 }
