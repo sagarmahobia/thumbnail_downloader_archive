@@ -12,10 +12,14 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.sagar.thumbnaildownloader.R;
+import com.sagar.thumbnaildownloader.alerts.MyToast;
 import com.sagar.thumbnaildownloader.databinding.ActivityMainBinding;
 import com.sagar.thumbnaildownloader.responsemodel.Status;
 import com.sagar.thumbnaildownloader.screens.downloadoptions.DownloaderOptionsActivity;
 import com.sagar.thumbnaildownloader.screens.main.videoadapter.VideoAdapter;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
@@ -40,13 +44,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
 
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainActivityViewModel.class);
         activityModel = viewModel.getActivityModel();
         binding.setModel(activityModel);
         binding.setHandler(this);
-
         binding.searchbarEdittext.addTextChangedListener(this);
 
         binding.searchRecycler.setLayoutManager(new LinearLayoutManager(this));
@@ -88,6 +92,28 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
                 }
             }
         });
+
+        Intent shareIntent = getIntent();
+        String action = shareIntent.getAction();
+        String type = shareIntent.getType();
+
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if ("text/plain".equals(type)) {
+                String extra = shareIntent.getStringExtra(Intent.EXTRA_TEXT);
+                if (extra != null) {
+                    String youTubeId = getYouTubeId(extra);
+                    if (!youTubeId.equalsIgnoreCase("error")) {
+                        Intent intent = new Intent(this, DownloaderOptionsActivity.class);
+                        intent.putExtra("id", youTubeId);
+                        startActivity(intent);
+                    } else {
+                        MyToast.show(binding.getRoot(), "Couldn't find youtube video.", MyToast.Type.FAILURE_SNACK_BAR);
+                    }
+                }
+            }
+        }
+
+
     }
 
     @Override
@@ -105,5 +131,16 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
         String query = editable.toString();
         viewModel.query(query);
 
+    }
+
+    private String getYouTubeId(String youTubeUrl) {
+        String pattern = "(?<=youtu.be/|watch\\?v=|/videos/|embed/)[^#&?]*";
+        Pattern compiledPattern = Pattern.compile(pattern);
+        Matcher matcher = compiledPattern.matcher(youTubeUrl);
+        if (matcher.find()) {
+            return matcher.group();
+        } else {
+            return "error";
+        }
     }
 }
