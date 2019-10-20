@@ -1,4 +1,4 @@
-package com.sagar.thumbnaildownloader.screens.downloader.imageadapter;
+package com.sagar.thumbnaildownloader.screens.downloadoptions.imageadapter;
 
 import androidx.recyclerview.widget.RecyclerView;
 

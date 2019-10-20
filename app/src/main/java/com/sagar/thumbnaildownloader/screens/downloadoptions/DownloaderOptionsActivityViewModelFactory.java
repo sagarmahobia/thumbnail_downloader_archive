@@ -1,4 +1,4 @@
-package com.sagar.thumbnaildownloader.screens.downloader;
+package com.sagar.thumbnaildownloader.screens.downloadoptions;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
@@ -8,13 +8,13 @@ import com.sagar.thumbnaildownloader.network.repo.YoutubeRepository;
 
 import javax.inject.Inject;
 
-@DownloaderActivityScope
-public class DownloaderActivityViewModelFactory implements ViewModelProvider.Factory {
+@DownloaderOptionsActivityScope
+public class DownloaderOptionsActivityViewModelFactory implements ViewModelProvider.Factory {
 
     private YoutubeRepository youtubeRepository;
 
     @Inject
-    DownloaderActivityViewModelFactory(YoutubeRepository youtubeRepository) {
+    DownloaderOptionsActivityViewModelFactory(YoutubeRepository youtubeRepository) {
         this.youtubeRepository = youtubeRepository;
     }
 
@@ -22,8 +22,8 @@ public class DownloaderActivityViewModelFactory implements ViewModelProvider.Fac
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
 
-        if (modelClass.isAssignableFrom(DownloaderActivityViewModel.class)) {
-            return (T) new DownloaderActivityViewModel(youtubeRepository);
+        if (modelClass.isAssignableFrom(DownloaderOptionsActivityViewModel.class)) {
+            return (T) new DownloaderOptionsActivityViewModel(youtubeRepository);
         } else {
             throw new IllegalArgumentException("Can not find ViewModel class " + modelClass.getName());
         }

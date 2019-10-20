@@ -23,9 +23,8 @@ public interface YoutubeRepository {
     Single<VideoSearch> getVideoSearch(@Query("q") String q, @Query("pageToken") String nextPageToken);
 
 
-    // Retrofit 2 GET request for rxjava
-    @Streaming
     @GET
-    Observable<ResponseBody> downloadFileByUrlRx(@Url String fileUrl);
+    Single<ResponseBody> downloadFileByUrlRx(@Url String fileUrl);
+
 
 }

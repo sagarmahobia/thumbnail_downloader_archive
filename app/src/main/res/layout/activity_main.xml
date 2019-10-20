@@ -42,10 +42,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginStart="8dp"
+                    app:cardBackgroundColor="@color/colorPrimary"
                     app:cardCornerRadius="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/searchbar_edittext_card"
+                    app:layout_constraintBottom_toBottomOf="@+id/searchbar_edittext"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/searchbar_edittext_card">
+                    app:layout_constraintTop_toTopOf="@+id/searchbar_edittext">
 
                     <ImageView
                         android:layout_width="35dp"
@@ -54,36 +55,28 @@
                         android:src="@drawable/logo" />
                 </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/searchbar_edittext_card"
+                <EditText
+                    android:id="@+id/searchbar_edittext"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
+                    android:background="@drawable/reounder_border"
+                    android:fontFamily="@font/roboto_light"
+                    android:hint="Enter Url or search for video."
+                    android:imeOptions="actionSearch"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
                     android:singleLine="true"
-                    app:cardBackgroundColor="@android:color/white"
-                    app:cardCornerRadius="8dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/colorPrimaryText"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/search_button"
                     app:layout_constraintStart_toEndOf="@+id/logo_image_card"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <EditText
-                        android:id="@+id/searchbar_edittext"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@android:color/transparent"
-                        android:hint="Enter URL or search for video"
-                        android:imeOptions="actionSearch"
-                        android:padding="10dp"
-                        android:singleLine="true"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textColorHint="@color/colorSecondaryText"
-                        android:textSize="16sp" />
-                </androidx.cardview.widget.CardView>
-
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/search_button"
@@ -93,9 +86,9 @@
                     android:background="?attr/selectableItemBackground"
                     android:padding="8dp"
                     android:src="@drawable/ic_search"
-                    app:layout_constraintBottom_toBottomOf="@+id/searchbar_edittext_card"
+                    app:layout_constraintBottom_toBottomOf="@+id/searchbar_edittext"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/searchbar_edittext_card" />
+                    app:layout_constraintTop_toTopOf="@+id/searchbar_edittext" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 

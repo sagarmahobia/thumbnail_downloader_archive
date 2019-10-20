@@ -13,9 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.sagar.thumbnaildownloader.R;
 import com.sagar.thumbnaildownloader.databinding.ActivityMainBinding;
-import com.sagar.thumbnaildownloader.responsemodel.PagingState;
 import com.sagar.thumbnaildownloader.responsemodel.Status;
-import com.sagar.thumbnaildownloader.screens.downloader.DownloaderActivity;
+import com.sagar.thumbnaildownloader.screens.downloadoptions.DownloaderOptionsActivity;
 import com.sagar.thumbnaildownloader.screens.main.videoadapter.VideoAdapter;
 
 import javax.inject.Inject;
@@ -53,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
         binding.searchRecycler.setLayoutManager(new LinearLayoutManager(this));
         binding.searchRecycler.setAdapter(videoAdapter);
         videoAdapter.setClickListener(videoModel -> {
-            Intent intent = new Intent(this, DownloaderActivity.class);
+            Intent intent = new Intent(this, DownloaderOptionsActivity.class);
             intent.putExtra("id", videoModel.getId());
             startActivity(intent);
         });

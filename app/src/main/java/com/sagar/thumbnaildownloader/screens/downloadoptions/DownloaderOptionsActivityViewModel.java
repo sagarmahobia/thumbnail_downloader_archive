@@ -1,6 +1,4 @@
-package com.sagar.thumbnaildownloader.screens.downloader;
-
-import android.widget.ArrayAdapter;
+package com.sagar.thumbnaildownloader.screens.downloadoptions;
 
 import androidx.lifecycle.ViewModel;
 
@@ -10,18 +8,18 @@ import java.util.ArrayList;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class DownloaderActivityViewModel extends ViewModel {
+public class DownloaderOptionsActivityViewModel extends ViewModel {
 
     private final YoutubeRepository youtubeRepository;
     private final CompositeDisposable disposable = new CompositeDisposable();
 
-    private DownloaderActivityModel activityModel = new DownloaderActivityModel();
+    private DownloaderOptionsActivityModel activityModel = new DownloaderOptionsActivityModel();
 
-    DownloaderActivityViewModel(YoutubeRepository youtubeRepository) {
+    DownloaderOptionsActivityViewModel(YoutubeRepository youtubeRepository) {
         this.youtubeRepository = youtubeRepository;
     }
 
-    DownloaderActivityModel getActivityModel() {
+    DownloaderOptionsActivityModel getActivityModel() {
         return activityModel;
     }
 

@@ -1,4 +1,4 @@
-package com.sagar.thumbnaildownloader.screens.downloader.imageadapter;
+package com.sagar.thumbnaildownloader.screens.downloadoptions.imageadapter;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -55,7 +55,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder> {
         holder.handleWith(imageHandler);
         holder.itemView.setOnClickListener(view -> {
             if (clickListener != null) {
-                clickListener.onClick(holder.getBinding().image, imageModel);
+                clickListener.onClick(imageModel);
             }
         });
 
@@ -67,7 +67,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder> {
     }
 
     public interface OnItemClickListener {
-        void onClick(ImageView imageView, ImageModel imageModel);
+        void onClick(ImageModel imageModel);
     }
 }
 

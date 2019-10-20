@@ -18,7 +18,7 @@ public class BindingAdapters {
 
     @BindingAdapter({"bind:imageUrl"})
     public static void loadImage(ImageView view, String imageUrl) {
-        Picasso.get().load(imageUrl).placeholder(R.drawable.hourglass).error(R.drawable.error).into(view);
+        Picasso.get().load(imageUrl).error(R.drawable.error).into(view);
     }
 
     @BindingAdapter({"android:src"})

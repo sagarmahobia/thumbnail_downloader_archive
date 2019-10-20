@@ -1,9 +1,8 @@
-package com.sagar.thumbnaildownloader.screens.downloader;
+package com.sagar.thumbnaildownloader.screens.downloadoptions;
 
 import androidx.databinding.BaseObservable;
-import androidx.databinding.Bindable;
 
-public class DownloaderActivityModel extends BaseObservable {
+public class DownloaderOptionsActivityModel extends BaseObservable {
 
     private String image;
     private String id;
