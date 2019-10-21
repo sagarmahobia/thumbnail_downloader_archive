@@ -97,6 +97,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
         String action = shareIntent.getAction();
         String type = shareIntent.getType();
 
+        boolean shouldRequest = true;
+
         if (Intent.ACTION_SEND.equals(action) && type != null) {
             if ("text/plain".equals(type)) {
                 String extra = shareIntent.getStringExtra(Intent.EXTRA_TEXT);
@@ -106,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
                         Intent intent = new Intent(this, DownloaderOptionsActivity.class);
                         intent.putExtra("id", youTubeId);
                         startActivity(intent);
+                        shouldRequest = false;
                     } else {
                         MyToast.show(binding.getRoot(), "Couldn't find youtube video.", MyToast.Type.FAILURE_SNACK_BAR);
                     }
@@ -113,7 +116,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
             }
         }
 
-
+        if (shouldRequest) {
+            binding.searchbarEdittext.requestFocus();
+        }
     }
 
     @Override
