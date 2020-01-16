@@ -1,7 +1,10 @@
 package com.sagar.thumbnaildownloader.screens.download;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +22,7 @@ import com.sagar.thumbnaildownloader.databinding.ActivityDownloadBinding;
 import com.sagar.thumbnaildownloader.network.repo.YoutubeRepository;
 import com.sagar.thumbnaildownloader.responsemodel.Response;
 import com.sagar.thumbnaildownloader.responsemodel.Status;
+import com.sagar.thumbnaildownloader.utilityservice.SharedPreferenceService;
 
 import java.util.List;
 
@@ -36,6 +40,9 @@ public class DownloadActivity extends AppCompatActivity implements DownloadActiv
     @Inject
     YoutubeRepository youtubeRepository;
 
+    @Inject
+    SharedPreferenceService sharedPreferenceService;
+
     private PermissionHelper permissionHelper;
 
     private ActivityDownloadBinding binding;
@@ -43,6 +50,7 @@ public class DownloadActivity extends AppCompatActivity implements DownloadActiv
     private DownloadActivityViewModel viewModel;
 
     private DownloadActivityModel activityModel;
+    private static boolean asked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,12 +87,20 @@ public class DownloadActivity extends AppCompatActivity implements DownloadActiv
         });
 
         viewModel.getSaveResponse().observe(this, this::onSaveResponse);
+
     }
 
     private void onSaveResponse(Response<Boolean> response) {
         if (response.getStatus() == Status.SUCCESS) {
             if (response.getData()) {
                 MyToast.show(binding.getRoot(), "Saved to gallery", MyToast.Type.SUCCESS_SNACK_BAR);
+            }
+
+            boolean openedEarlier = sharedPreferenceService.checkRated();
+            long launchCount = sharedPreferenceService.getLaunchCount();
+            if (launchCount % 3 == 0 && !openedEarlier && !asked) {
+                showRateUsDialog();
+                asked = true;
             }
             binding.downloadButton.setVisibility(View.VISIBLE);
             binding.progressBar.setVisibility(View.GONE);
@@ -98,6 +114,27 @@ public class DownloadActivity extends AppCompatActivity implements DownloadActiv
             binding.downloadButton.setVisibility(View.GONE);
             binding.progressBar.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void showRateUsDialog() {
+
+        new AlertDialog.Builder(this)
+                .setTitle("⭐⭐⭐⭐⭐")
+                .setMessage("We need your support. If this app is useful to you, please take a moment to rate it.")
+                .setPositiveButton("Rate", (dialog, which) -> {
+                    dialog.dismiss();
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://play.google.com/store/apps/details?id=" + this.getPackageName())
+                    );
+                    startActivity(browserIntent);
+                    sharedPreferenceService.setRated();
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                    dialog.dismiss();
+                })
+                .setCancelable(false)
+                .create()
+                .show();
     }
 
   /*  @Override

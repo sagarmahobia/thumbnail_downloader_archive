@@ -2,6 +2,8 @@ package com.sagar.thumbnaildownloader;
 
 import android.app.Application;
 
+import com.sagar.thumbnaildownloader.utilityservice.SharedPreferenceService;
+
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjector;
@@ -13,6 +15,9 @@ public class ThumbnailDownloaderApplication extends Application implements HasAn
     @Inject
     DispatchingAndroidInjector<Object> activityDispatchingAndroidInjector;
 
+    @Inject
+    SharedPreferenceService sharedPreferenceService;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -21,6 +26,9 @@ public class ThumbnailDownloaderApplication extends Application implements HasAn
                 .factory()
                 .create(this)
                 .inject(this);
+
+        sharedPreferenceService.incrementLaunchCount();
+
     }
 
     @Override
