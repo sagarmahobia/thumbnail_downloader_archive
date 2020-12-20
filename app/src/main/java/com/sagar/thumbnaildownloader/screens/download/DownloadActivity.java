@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.justadeveloper96.permissionhelper.PermissionHelper;
 import com.sagar.thumbnaildownloader.R;
@@ -59,7 +59,7 @@ public class DownloadActivity extends AppCompatActivity implements DownloadActiv
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_download);
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(DownloadActivityViewModel.class);
+        viewModel = new ViewModelProvider(this, viewModelFactory).get(DownloadActivityViewModel.class);
         activityModel = viewModel.getActivityModel();
         binding.setModel(activityModel);
         binding.setHandler(this);
@@ -137,27 +137,14 @@ public class DownloadActivity extends AppCompatActivity implements DownloadActiv
                 .show();
     }
 
-  /*  @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        if (requestCode == MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE) {
-            // If request is cancelled, the result arrays are empty.
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                viewModel.save();
-            } else {
-                MyToast.show(binding.getRoot(), "Storage permission is required.", MyToast.Type.FAILURE_SNACK_BAR);
-            }
-        }
-    }*/
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        permissionHelper.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            permissionHelper.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
 
     }
 
@@ -169,9 +156,7 @@ public class DownloadActivity extends AppCompatActivity implements DownloadActiv
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
                 String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-            /*    requestPermissions(
-                        permissions,
-                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);*/
+
                 permissionHelper.requestPermission(permissions, MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
             }
         } else {

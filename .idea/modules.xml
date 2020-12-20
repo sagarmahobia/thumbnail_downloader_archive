@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Tumbnail Downloader.iml" filepath="$PROJECT_DIR$/Tumbnail Downloader.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Tumbnail_Downloader.iml" filepath="$PROJECT_DIR$/.idea/modules/Tumbnail_Downloader.iml" group="Tumbnail_Downloader" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="Tumbnail Downloader/app" />
     </modules>
   </component>
 </project>

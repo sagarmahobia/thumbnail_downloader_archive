@@ -21,6 +21,7 @@ import java.io.OutputStream;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import lombok.Getter;
 import okhttp3.ResponseBody;
 
 public class DownloadActivityViewModel extends ViewModel {
@@ -28,21 +29,17 @@ public class DownloadActivityViewModel extends ViewModel {
     private YoutubeRepository youtubeRepository;
     private final CompositeDisposable disposable = new CompositeDisposable();
 
+
+    @Getter
     private DownloadActivityModel activityModel = new DownloadActivityModel();
 
+    @Getter
     private MutableLiveData<Response> saveResponse = new MutableLiveData<>();
 
     DownloadActivityViewModel(YoutubeRepository youtubeRepository) {
         this.youtubeRepository = youtubeRepository;
     }
 
-    DownloadActivityModel getActivityModel() {
-        return activityModel;
-    }
-
-    public MutableLiveData<Response> getSaveResponse() {
-        return saveResponse;
-    }
 
     void save() {
         saveResponse.setValue(Response.loading());
@@ -74,34 +71,12 @@ public class DownloadActivityViewModel extends ViewModel {
                 OutputStream outputStream = null;
 
                 try {
-               /*     byte[] fileReader = new byte[4096];
 
-                    long fileSize = body.contentLength();
-                    long fileSizeDownloaded = 0;
-*/
                     inputStream = body.byteStream();
 
                     File destination = new File(destinationFilePath);
                     FileUtils.copyInputStreamToFile(inputStream, destination);
 
-                    /*
-                    outputStream = new FileOutputStream(futureStudioIconFile);
-
-                    while (true) {
-                        int read = inputStream.read(fileReader);
-
-                        if (read == -1) {
-                            break;
-                        }
-
-                        outputStream.write(fileReader, 0, read);
-
-                        fileSizeDownloaded += read;
-
-                        Log.d("TAG", "file download: " + fileSizeDownloaded + " of " + fileSize);
-                    }
-
-                    outputStream.flush();*/
                     emitter.onSuccess(true);
                 } catch (IOException e) {
                     emitter.onError(e);
